@@ -45,27 +45,34 @@ export const exec = async (
   })
 }
 
-export const cdkDeploy = async (appPath: string, cdkApp: string) => {
-  try {
-    const baseDir = appPath.split('/').slice(0, -1).join('/')
+export const cdkDeploy = async (cdkApp: string, baseDir: string, force: boolean, verbose: boolean) => {
+  const args = [
+    'deploy',
+    '--app',
+    cdkApp,
+    '--json',
+    '--require-approval',
+    'never',
+    '--method',
+    'direct',
+    '--outputs-file',
+    './outputs.json',
+  ]
+  if (force) {
+    args.push('--force')
+  } else {
+    args.push('--hotswap')
+  }
 
+  if (verbose) {
+    args.push('--verbose')
+    args.push('--verbose')
+  }
+
+  try {
     await exec(
       'cdk',
-      [
-        'deploy',
-        '--output',
-        `${path.join(baseDir, 'cdk.out')}`,
-        '--app',
-        cdkApp,
-        '--json',
-        '--require-approval',
-        'never',
-        '--method',
-        'direct',
-        '--outputs-file',
-        './outputs.json',
-        '--hotswap',
-      ],
+      args,
       { cwd: baseDir },
       (chunk) => console.debug(chunk.toString()),
       (chunk) => console.error(chunk.toString()),
@@ -78,21 +85,24 @@ export const cdkDeploy = async (appPath: string, cdkApp: string) => {
   }
 }
 
-export const cdkDestroy = async (appPath: string, cdkApp: string) => {
+export const cdkDestroy = async (cdkApp: string, baseDir: string, force: boolean, verbose: boolean) => {
+  const args = [
+    'destroy',
+    '--app',
+    cdkApp,
+    '--json',
+  ]
+  if (force) {
+    args.push('--force')
+  }
+  if (verbose) {
+    args.push('--verbose')
+    args.push('--verbose')
+  }
   try {
-    const baseDir = appPath.split('/').slice(0, -1).join('/')
-
     await exec(
       'cdk',
-      [
-        'destroy',
-        '--output',
-        `${path.join(baseDir, 'cdk.out')}`,
-        '--app',
-        cdkApp,
-        '--json',
-        '--force',
-      ],
+      args,
       { cwd: baseDir },
       (chunk) => console.debug(chunk.toString()),
       (chunk) => console.error(chunk.toString()),

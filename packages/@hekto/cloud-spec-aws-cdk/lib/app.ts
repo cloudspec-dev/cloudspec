@@ -1,27 +1,40 @@
-// import * as cdk from 'aws-cdk-lib'
-// import { Aspects, CfnOutput } from 'aws-cdk-lib'
-// import { Construct } from 'constructs'
-// import { UserPool, ResetCognitoUsers } from '.'
-// import { ForceEphemeralResources } from './helper/ephemeral'
+#!/usr/bin/env node
+import 'source-map-support/register';
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as os from 'os';
 
-// const app = new cdk.App()
+class TestStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+  }
+}
 
-// class TestStack extends cdk.Stack {
-//   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-//     super(scope, id, props)
+export interface CreateTestAppProps  {
+  name?: string;
+  outdir?: string;
+  creator?: (app: cdk.Stack) => void;
+}
 
-//     const pool = new UserPool(this, 'testing').resource
+export interface TestAppConfig {
+  name: string;
+  outdir: string;
+}
 
-//     const reset = new ResetCognitoUsers(this, 'reset-cognito-users', {
-//       userPoolId: pool.userPoolId,
-//     })
+export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
+  // create tmp dir
+  const outdir = props.outdir || fs.mkdtempSync(path.join(os.tmpdir(), 'cdk-test-app-'));
 
-//     new CfnOutput(this, 'stateMachineArn', {
-//       value: reset.resource.stateMachineArn,
-//     }).overrideLogicalId('stateMachineArn')
-//   }
-// }
-
-// const stackName = process.env.GITHUB_REF_NAME ? `CognitoTest-${process.env.GITHUB_REF_NAME}` : 'CognitoTest'
-// const stack = new TestStack(app, stackName)
-// Aspects.of(stack).add(new ForceEphemeralResources())
+  const { name = (process.env.GITHUB_REF_NAME ? `TestStack-${process.env.GITHUB_REF_NAME}` : 'TestStack'), creator } = props;
+  const app = new cdk.App({outdir});
+  const stack = new TestStack(app, name, {})
+  creator?.(stack)
+  app.synth();
+  // console.log({ result })
+  return {
+    outdir,
+    name
+  }
+}
