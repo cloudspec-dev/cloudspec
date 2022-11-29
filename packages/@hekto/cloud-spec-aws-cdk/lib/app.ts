@@ -26,10 +26,6 @@ export interface TestAppConfig {
 }
 
 export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
-  console.log({
-    state: expect.getState()
-  })
-
   const testPath = expect.getState().testPath;
 
   if (!testPath) {
