@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - foo
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -17,7 +17,7 @@ jobs:
 
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: 7.17.1
+          version: 7
 
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v3
