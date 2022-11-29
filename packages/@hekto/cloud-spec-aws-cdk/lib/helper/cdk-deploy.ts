@@ -86,12 +86,7 @@ export const cdkDeploy = async (cdkApp: string, baseDir: string, force: boolean,
 }
 
 export const cdkDestroy = async (cdkApp: string, baseDir: string, force: boolean, verbose: boolean) => {
-  const args = [
-    'destroy',
-    '--app',
-    cdkApp,
-    '--json',
-  ]
+  const args = ['destroy', '--app', cdkApp, '--json']
   if (force) {
     args.push('--force')
   }

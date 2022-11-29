@@ -6,10 +6,15 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "release": "turbo run release"
+    "release": "turbo run release",
+    "prettier-format": "prettier --config .prettierrc 'packages/**/*.ts' 'test/**/*.ts' --write"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.2",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "prettier": "^2.8.0",
     "turbo": "^1.6.3"
   },
   "author": "The Hekto Cloud Team",

@@ -1,4 +1,4 @@
-import { Construct } from 'constructs';
+import { Construct } from 'constructs'
 import * as sfn from 'aws-cdk-lib/aws-stepfunctions'
 import * as logs from 'aws-cdk-lib/aws-logs'
 import * as sfnTasks from 'aws-cdk-lib/aws-stepfunctions-tasks'
@@ -9,10 +9,10 @@ export interface SfnInput {
 }
 
 export class CreateECR extends Construct {
-  public readonly sfn: sfn.StateMachine;
+  public readonly sfn: sfn.StateMachine
 
   constructor(scope: Construct, id: string) {
-    super(scope, id);
+    super(scope, id)
 
     const createECR = new sfnTasks.CallAwsService(this, 'Create ECR Repo', {
       service: 'ecr',
@@ -21,7 +21,7 @@ export class CreateECR extends Construct {
         RepositoryName: sfn.JsonPath.stringAt('$.repositoryName'),
       },
       iamResources: ['arn:aws:ecr:*:*:repository/*'],
-      resultPath: '$.ecr'
+      resultPath: '$.ecr',
     })
 
     const choice = new sfn.Choice(this, 'Error?')
