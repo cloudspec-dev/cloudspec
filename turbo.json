@@ -9,6 +9,11 @@
       "dependsOn": ["^build"],
       "outputs": [],
       "inputs": []
+    },
+    "release": {
+      "dependsOn": ["^build", "^test"],
+      "outputs": [],
+      "inputs": []
     }
   }
 }
