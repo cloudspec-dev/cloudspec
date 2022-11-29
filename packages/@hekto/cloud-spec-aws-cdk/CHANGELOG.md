@@ -1,5 +1,11 @@
 # @hekto/cloud-spec-aws-cdk
 
+## 0.0.5
+
+### Patch Changes
+
+- fe13dd4: Proper publishing
+
 ## 0.0.4
 
 ### Patch Changes
