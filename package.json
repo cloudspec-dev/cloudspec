@@ -5,7 +5,7 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "publish": "pnpm build && changeset publish",
+    "release": "pnpm build && changeset publish",
     "prettier-format": "prettier --config .prettierrc 'packages/**/*.ts' 'test/**/*.ts' --write"
   },
   "devDependencies": {
