@@ -6,7 +6,6 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "release": "turbo run release",
     "prettier-format": "prettier --config .prettierrc 'packages/**/*.ts' 'test/**/*.ts' --write"
   },
   "devDependencies": {
