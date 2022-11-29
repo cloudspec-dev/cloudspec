@@ -11,6 +11,10 @@ jobs:
       name: Build and Test
       timeout-minutes: 15
       runs-on: ubuntu-latest
+      # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+      permissions:
+        id-token: write
+        contents: read
       strategy:
         matrix:
           node-version: [16]
@@ -36,6 +40,13 @@ jobs:
 
         - name: Build
           run: pnpm build
+
+        - name: Configure AWS credentials from Test account
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            role-session-name: cloud-spec-tests
+            role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+            aws-region: ${{ secrets.AWS_REGION }}
 
         - name: Test
           run: pnpm test
