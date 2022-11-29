@@ -1,8 +1,8 @@
-import type { Global, } from '@jest/types'
+import type { Global } from '@jest/types'
 // import type { MatcherState } from '@jest/expect'
 import { cdkDeploy, cdkDestroy } from './helper/cdk-deploy'
 import { TestAppConfig } from './app'
-import console from "console"
+import console from 'console'
 
 type Outputs = Record<string, any>
 type Global = Global.Global
@@ -36,11 +36,9 @@ export class CloudTestContext {
     // this.relativePath = state.testPath?.replace(process.cwd(), '') || ''
   }
 
-  public async done(): Promise<void> {
-  }
+  public async done(): Promise<void> {}
 
-  public fail(error: Error): void {
-  }
+  public fail(error: Error): void {}
 }
 
 const install = (g: Global) => {
