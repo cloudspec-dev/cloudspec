@@ -17,6 +17,8 @@ const testApp = createTestApp({
   },
 });
 
+console.log({ testApp });
+
 describe("Repository", () => {
   cloud.setup({
     testApp,
