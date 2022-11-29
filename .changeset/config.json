@@ -7,6 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [],
-  "privatePackages": { "version": false, "tag": false }
+  "ignore": ["@hekto/test-aws-cdk"]
 }
