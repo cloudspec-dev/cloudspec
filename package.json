@@ -1,12 +1,17 @@
 {
   "name": "@hekto/cloud-spec",
   "version": "0.1.0",
-  "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "publish": "turbo run publish"
   },
-  "keywords": [],
+  "devDependencies": {
+    "@changesets/cli": "^2.25.2",
+    "turbo": "^1.6.3"
+  },
   "author": "The Hekto Cloud Team",
   "license": "MPL-2.0"
 }
