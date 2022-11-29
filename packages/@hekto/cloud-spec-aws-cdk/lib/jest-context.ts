@@ -1,6 +1,7 @@
 import type { Global, } from '@jest/types'
 // import type { MatcherState } from '@jest/expect'
 import { cdkDeploy, cdkDestroy } from './helper/cdk-deploy'
+import { TestAppConfig } from './app'
 import console from "console"
 
 type Outputs = Record<string, any>
@@ -12,8 +13,7 @@ declare type CloudEachTestFn<EachCallback extends Global.TestCallback> = (
 ) => ReturnType<EachCallback>
 
 export interface CloudSetup {
-  cdkApp: string
-  baseDir: string
+  testApp: TestAppConfig
   force?: boolean
   verbose?: boolean
 }
@@ -80,8 +80,8 @@ const install = (g: Global) => {
     g.console = console
     g.beforeAll(
       bind(async () => {
-        const { cdkApp, baseDir, force = false, verbose = false } = config // tmp dir for outputs
-        outputs = await cdkDeploy(cdkApp, baseDir, force, verbose) // runner
+        const { testApp, force = false, verbose = false } = config // tmp dir for outputs
+        outputs = await cdkDeploy(testApp.outDir, testApp.testDir, force, verbose) // runner
 
         // sleep for 2 seconds to allow for AWS to finish
         await new Promise((resolve) => setTimeout(resolve, 2_000))
@@ -94,9 +94,9 @@ const install = (g: Global) => {
     )
 
     g.afterAll(async () => {
-      const { cdkApp, baseDir, force = false, verbose = false } = config // tmp dir for outputs
+      const { testApp, force = false, verbose = false } = config // tmp dir for outputs
       if (process.env.DESTROY_CDK_STACKS === 'true') {
-        await cdkDestroy(cdkApp, baseDir, force, verbose)
+        await cdkDestroy(testApp.outDir, testApp.testDir, force, verbose)
       }
     }, 240_000)
   }
