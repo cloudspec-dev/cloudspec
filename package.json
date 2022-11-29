@@ -1,5 +1,5 @@
 {
-  "name": "@hekto/cloud-spec",
+  "name": "root",
   "version": "0.1.0",
   "private": true,
   "scripts": {
