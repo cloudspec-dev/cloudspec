@@ -38,8 +38,12 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
   const defaultName = `TestStack-${process.env.GITHUB_REF_NAME || process.env.USER}-${digest}`;
 
   const { name = defaultName, creator } = props;
+
+  // replace all non-alphanumeric characters with '-'
+  const stackName = name.replace(/[^a-zA-Z0-9]/g, '-');
+
   const app = new cdk.App({outdir});
-  const stack = new TestStack(app, name, {})
+  const stack = new TestStack(app, stackName, {})
   stack.tags.setTag('Test', 'true');
   stack.tags.setTag('TestPath', testPath);
 
@@ -48,7 +52,7 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
   // console.log({ result })
   return {
     outDir: outdir,
-    stackName: name,
+    stackName,
     testDir: path.dirname(testPath),
   }
 }
