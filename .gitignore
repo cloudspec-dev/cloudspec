@@ -3,3 +3,4 @@ node_modules
 dist
 .turbo
 !jest.config.js
+**/outputs.json
