@@ -45,7 +45,7 @@ export const exec = async (
   })
 }
 
-export const cdkDeploy = async (cdkApp: string, baseDir: string, force: boolean, verbose: boolean) => {
+export const cdkDeploy = async (cdkApp: string, workDir: string, force: boolean, verbose: boolean) => {
   const args = [
     'deploy',
     '--app',
@@ -73,19 +73,19 @@ export const cdkDeploy = async (cdkApp: string, baseDir: string, force: boolean,
     await exec(
       'cdk',
       args,
-      { cwd: baseDir },
+      { cwd: workDir },
       (chunk) => console.debug(chunk.toString()),
       (chunk) => console.error(chunk.toString()),
     )
 
-    const outputs = JSON.parse(fs.readFileSync(path.join(baseDir, 'outputs.json'), 'utf8'))
+    const outputs = JSON.parse(fs.readFileSync(path.join(workDir, 'outputs.json'), 'utf8'))
     return outputs
   } catch (err) {
     console.error(err)
   }
 }
 
-export const cdkDestroy = async (cdkApp: string, baseDir: string, force: boolean, verbose: boolean) => {
+export const cdkDestroy = async (cdkApp: string, workDir: string, force: boolean, verbose: boolean) => {
   const args = ['destroy', '--app', cdkApp, '--json']
   if (force) {
     args.push('--force')
@@ -98,7 +98,7 @@ export const cdkDestroy = async (cdkApp: string, baseDir: string, force: boolean
     await exec(
       'cdk',
       args,
-      { cwd: baseDir },
+      { cwd: workDir },
       (chunk) => console.debug(chunk.toString()),
       (chunk) => console.error(chunk.toString()),
     )

@@ -25,7 +25,8 @@ export interface TestAppConfig {
   outDir: string
   testDir: string
   stack: TestStack,
-  outputs: Outputs
+  outputs: Outputs,
+  workDir: string
 }
 
 export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
@@ -36,7 +37,8 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
   }
 
   // create tmp dir
-  const outdir = props.outdir || fs.mkdtempSync(path.join(os.tmpdir(), 'cdk-test-app-'))
+  const workDir = props.outdir || fs.mkdtempSync(path.join(os.tmpdir(), 'cdk-test-app-'))
+  const outdir = path.join(workDir, 'cdk.out')
   const digest = createHash('sha256').update(testPath).digest('hex').substr(0, 8)
   const defaultName = `TestStack-${process.env.GITHUB_REF_NAME || process.env.USER}-${digest}`
 
@@ -49,6 +51,7 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
   const stack = new TestStack(app, stackName, {})
   stack.tags.setTag('Test', 'true')
   stack.tags.setTag('TestPath', testPath)
+  stack.tags.setTag('CloudSpecProjectName', (global as any).CLOUD_SPEC_PROJECT_NAME)
 
   let stackOutputs: Outputs = {}
 
@@ -66,6 +69,7 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
   app.synth()
   return {
     outDir: outdir,
+    workDir,
     stackName,
     testDir: path.dirname(testPath),
     outputs: stackOutputs,

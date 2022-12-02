@@ -79,7 +79,7 @@ const install = (g: Global) => {
     g.beforeAll(
       bind(async () => {
         const { testApp, force = false, verbose = false } = config // tmp dir for outputs
-        const result = await cdkDeploy(testApp.outDir, testApp.testDir, force, verbose) // runner
+        const result = await cdkDeploy(testApp.outDir, testApp.workDir, force, verbose) // runner
 
         outputs = result[testApp.stackName]
 
@@ -96,7 +96,7 @@ const install = (g: Global) => {
     g.afterAll(async () => {
       const { testApp, force = false, verbose = false } = config // tmp dir for outputs
       if (process.env.DESTROY_CDK_STACKS === 'true') {
-        await cdkDestroy(testApp.outDir, testApp.testDir, force, verbose)
+        await cdkDestroy(testApp.outDir, testApp.workDir, force, verbose)
       }
     }, 240_000)
   }
