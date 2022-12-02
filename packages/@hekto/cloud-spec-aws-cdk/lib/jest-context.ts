@@ -79,7 +79,9 @@ const install = (g: Global) => {
     g.beforeAll(
       bind(async () => {
         const { testApp, force = false, verbose = false } = config // tmp dir for outputs
-        outputs = await cdkDeploy(testApp.outDir, testApp.testDir, force, verbose) // runner
+        const result = await cdkDeploy(testApp.outDir, testApp.testDir, force, verbose) // runner
+
+        outputs = result[testApp.stackName]
 
         // sleep for 2 seconds to allow for AWS to finish
         await new Promise((resolve) => setTimeout(resolve, 2_000))

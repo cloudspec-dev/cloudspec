@@ -12,17 +12,20 @@ class TestStack extends cdk.Stack {
     super(scope, id, props)
   }
 }
+export type Outputs = Record<string, any>
 
 export interface CreateTestAppProps {
   name?: string
   outdir?: string
-  creator?: (app: cdk.Stack) => void
+  creator?: (app: cdk.Stack, outputs: (outputs: Outputs) => Outputs) => void
 }
 
 export interface TestAppConfig {
   stackName: string
   outDir: string
   testDir: string
+  stack: TestStack,
+  outputs: Outputs
 }
 
 export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
@@ -47,12 +50,25 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
   stack.tags.setTag('Test', 'true')
   stack.tags.setTag('TestPath', testPath)
 
-  creator?.(stack)
+  let stackOutputs: Outputs = {}
+
+  const outputsHandler = (outputs: Outputs) => {
+    for (const [key, value] of Object.entries(outputs)) {
+      new cdk.CfnOutput(stack, key, { value })
+    }
+
+    stackOutputs = outputs;
+
+    return outputs
+  }
+
+  creator?.(stack, outputsHandler)
   app.synth()
-  // console.log({ result })
   return {
     outDir: outdir,
     stackName,
     testDir: path.dirname(testPath),
+    outputs: stackOutputs,
+    stack
   }
 }
