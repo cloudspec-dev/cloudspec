@@ -30,17 +30,22 @@ export interface TestAppConfig {
 }
 
 export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
-  const testPath = expect.getState().testPath
+  const testPath = expect.getState().testPath;
+  const projectName = (global as any).CLOUD_SPEC_PROJECT_NAME;
 
   if (!testPath) {
     throw new Error('Jest test path not found')
+  }
+
+  if (!projectName) {
+    throw new Error('Project name not found. Please set CLOUD_SPEC_PROJECT_NAME as global config in jest.')
   }
 
   // create tmp dir
   const workDir = props.outdir || fs.mkdtempSync(path.join(os.tmpdir(), 'cdk-test-app-'))
   const outdir = path.join(workDir, 'cdk.out')
   const digest = createHash('sha256').update(testPath).digest('hex').substr(0, 8)
-  const defaultName = `TestStack-${process.env.GITHUB_REF_NAME || process.env.USER}-${digest}`
+  const defaultName = `CloudSpec-${projectName}-${process.env.GITHUB_REF_NAME || process.env.USER}-${digest}`
 
   const { name = defaultName, creator } = props
 
@@ -51,7 +56,7 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
   const stack = new TestStack(app, stackName, {})
   stack.tags.setTag('Test', 'true')
   stack.tags.setTag('TestPath', testPath)
-  stack.tags.setTag('CloudSpecProjectName', (global as any).CLOUD_SPEC_PROJECT_NAME)
+  stack.tags.setTag('CloudSpecProjectName', projectName)
   if (process.env.GITHUB_REF_NAME) {
     stack.tags.setTag('GitRefName', process.env.GITHUB_REF_NAME)
   }
