@@ -1,5 +1,11 @@
 # @hekto/cloud-spec-aws-cdk
 
+## 0.0.8
+
+### Patch Changes
+
+- 923e3c4: Group cfn stacks visually by providing project name as part of the name
+
 ## 0.0.7
 
 ### Patch Changes
