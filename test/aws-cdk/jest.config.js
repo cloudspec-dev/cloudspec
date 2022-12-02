@@ -4,4 +4,7 @@ module.exports = {
   },
   testEnvironment: 'node',
   testMatch: ['**/*.test.ts'],
+  globals: {
+    CLOUD_SPEC_PROJECT_NAME: 'cloud-spec',
+  }
 };
