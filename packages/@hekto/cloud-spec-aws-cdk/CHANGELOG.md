@@ -1,5 +1,11 @@
 # @hekto/cloud-spec-aws-cdk
 
+## 0.0.7
+
+### Patch Changes
+
+- bd53468: Set GitRefName as Cfn tag. Will be useful for automatically tearing down stacks related to branches or pull requests
+
 ## 0.0.6
 
 ### Patch Changes
