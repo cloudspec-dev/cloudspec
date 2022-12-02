@@ -52,6 +52,9 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
   stack.tags.setTag('Test', 'true')
   stack.tags.setTag('TestPath', testPath)
   stack.tags.setTag('CloudSpecProjectName', (global as any).CLOUD_SPEC_PROJECT_NAME)
+  if (process.env.GITHUB_REF_NAME) {
+    stack.tags.setTag('GitRefName', process.env.GITHUB_REF_NAME)
+  }
 
   let stackOutputs: Outputs = {}
 
