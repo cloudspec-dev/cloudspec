@@ -59,14 +59,14 @@ export function Hero() {
             />
             <div className="relative">
               <p className="inline bg-gradient-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
-                Streamlined Cloud Testing
+              Streamlined Cloud Testing
               </p>
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
-                Finally start testing your cloud infrastructure with ease. Gain confidence in your cloud deployments with a simple, intuitive API.
+                Start testing your cloud infrastructure with ease. Gain confidence in your cloud deployments with a simple, intuitive API.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button href="/">Get started</Button>
-                <Button href="/" variant="secondary">
+                <Button href="https://github.com/hekto-dev/cloudspec" variant="secondary">
                   View on GitHub
                 </Button>
               </div>
