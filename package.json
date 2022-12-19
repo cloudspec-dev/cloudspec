@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
+    "dev": "turbo run dev",
     "lint": "turbo run lint",
     "release": "pnpm build && changeset publish",
     "prettier-format": "prettier --config .prettierrc 'packages/**/*.ts' 'test/**/*.ts' --write"

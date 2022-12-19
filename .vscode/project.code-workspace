@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "name": "ROOT",
+      "path": "../"
+    },
+    {
+      "name": "packages/aws-cdk",
+      "path": "../packages/@hekto/cloud-spec-aws-cdk"
+    },
+    {
+      "name": "packages/terraform",
+      "path": "../packages/@hekto/cloud-spec-terraform"
+    },
+    {
+      "name": "test/aws-cdk",
+      "path": "../test/aws-cdk"
+    },
+    {
+      "name": "test/terraform",
+      "path": "../test/terraform"
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      "node_modules/": true,
+    },
+  }
+}
