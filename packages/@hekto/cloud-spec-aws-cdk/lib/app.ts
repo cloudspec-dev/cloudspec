@@ -54,11 +54,11 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
 
   const app = new cdk.App({ outdir })
   const stack = new TestStack(app, stackName, {})
-  stack.tags.setTag('Test', 'true')
-  stack.tags.setTag('TestPath', testPath)
-  stack.tags.setTag('CloudSpecProjectName', projectName)
+  cdk.Tags.of(stack).add('Test', 'true')
+  cdk.Tags.of(stack).add('TestPath', testPath)
+  cdk.Tags.of(stack).add('CloudSpecProjectName', projectName)
   if (process.env.GITHUB_REF_NAME) {
-    stack.tags.setTag('GitRefName', process.env.GITHUB_REF_NAME)
+    cdk.Tags.of(stack).add('GitRefName', process.env.GITHUB_REF_NAME)
   }
 
   let stackOutputs: Outputs = {}
