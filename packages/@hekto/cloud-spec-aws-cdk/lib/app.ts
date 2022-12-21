@@ -68,11 +68,21 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
 
   creator?.(stack, outputsHandler)
 
-  cdk.Tags.of(stack).add('Test', 'true')
-  cdk.Tags.of(stack).add('TestPath', testPath)
-  cdk.Tags.of(stack).add('CloudSpecProjectName', projectName)
+  const excludeResourceTypes = ['AWS::Lambda::Function']
+
+  cdk.Tags.of(stack).add('Test', 'true', {
+    excludeResourceTypes,
+  })
+  cdk.Tags.of(stack).add('TestPath', testPath, {
+    excludeResourceTypes,
+  })
+  cdk.Tags.of(stack).add('CloudSpecProjectName', projectName, {
+    excludeResourceTypes,
+  })
   if (process.env.GITHUB_REF_NAME) {
-    cdk.Tags.of(stack).add('GitRefName', process.env.GITHUB_REF_NAME)
+    cdk.Tags.of(stack).add('GitRefName', process.env.GITHUB_REF_NAME, {
+      excludeResourceTypes,
+    })
   }
 
   app.synth()
