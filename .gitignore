@@ -4,3 +4,4 @@ dist
 .turbo
 !jest.config.js
 **/outputs.json
+.cloud-spec

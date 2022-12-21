@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 import 'source-map-support/register'
-import * as cdk from 'aws-cdk-lib'
+import * as cdktf from 'cdktf'
+import { IManifest } from 'cdktf/lib/manifest'
 import { Construct } from 'constructs'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as os from 'os'
 import { createHash } from 'crypto'
 
-class TestStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props)
+class TestStack extends cdktf.TerraformStack {
+  constructor(scope: Construct, id: string) {
+    super(scope, id)
   }
 }
 export type Outputs = Record<string, any>
@@ -17,7 +18,7 @@ export type Outputs = Record<string, any>
 export interface CreateTestAppProps {
   name?: string
   outdir?: string
-  creator?: (app: cdk.Stack, outputs: (outputs: Outputs) => Outputs) => void
+  creator?: (app: cdktf.TerraformStack, outputs: (outputs: Outputs) => Outputs) => void
 }
 
 export interface TestAppConfig {
@@ -41,24 +42,26 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
     throw new Error('Project name not found. Please set CLOUD_SPEC_PROJECT_NAME as global config in jest.')
   }
 
-  // create tmp dir
-  const workDir = props.outdir || fs.mkdtempSync(path.join(os.tmpdir(), 'cdk-test-app-'))
-  const outdir = path.join(workDir, 'cdk.out')
   const digest = createHash('sha256').update(testPath).digest('hex').substr(0, 8)
   const defaultName = `CloudSpec-${projectName}-${process.env.GITHUB_REF_NAME || process.env.USER}-${digest}`
-
   const { name = defaultName, creator } = props
 
   // replace all non-alphanumeric characters with '-'
   const stackName = name.replace(/[^a-zA-Z0-9]/g, '-')
 
-  const app = new cdk.App({ outdir })
-  const stack = new TestStack(app, stackName, {})
+  const workDir = props.outdir || path.join(path.dirname(testPath), '.cloud-spec', stackName)
+  const outdir = workDir
+
+  fs.mkdirSync(outdir, { recursive: true })
+
+  const app = new cdktf.App({ outdir })
+  const stack = new TestStack(app, stackName)
+
   let stackOutputs: Outputs = {}
 
   const outputsHandler = (outputs: Outputs) => {
     for (const [key, value] of Object.entries(outputs)) {
-      new cdk.CfnOutput(stack, key, { value })
+      new cdktf.TerraformOutput(stack, key, { value, staticId: true })
     }
 
     stackOutputs = outputs;
@@ -66,19 +69,16 @@ export const createTestApp = (props: CreateTestAppProps): TestAppConfig => {
     return outputs
   }
 
+
   creator?.(stack, outputsHandler)
-
-  cdk.Tags.of(stack).add('Test', 'true')
-  cdk.Tags.of(stack).add('TestPath', testPath)
-  cdk.Tags.of(stack).add('CloudSpecProjectName', projectName)
-  if (process.env.GITHUB_REF_NAME) {
-    cdk.Tags.of(stack).add('GitRefName', process.env.GITHUB_REF_NAME)
-  }
-
   app.synth()
+
+  const manifest: IManifest = JSON.parse(fs.readFileSync(path.join(outdir, 'manifest.json'), 'utf-8'))
+  const stackWorkDir = path.join(outdir, manifest.stacks[stackName].workingDirectory)
+
   return {
     outDir: outdir,
-    workDir,
+    workDir: stackWorkDir,
     stackName,
     testDir: path.dirname(testPath),
     outputs: stackOutputs,
