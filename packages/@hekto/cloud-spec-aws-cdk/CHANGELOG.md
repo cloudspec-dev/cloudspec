@@ -1,5 +1,11 @@
 # @hekto/cloud-spec-aws-cdk
 
+## 0.0.10
+
+### Patch Changes
+
+- 02036de: Allow to adjust timeouts for deploying / destroying the test stack
+
 ## 0.0.9
 
 ### Patch Changes
