@@ -15,6 +15,7 @@ declare type CloudEachTestFn<EachCallback extends Global.TestCallback> = (
 export interface CloudSetup {
   testApp: TestAppConfig
   force?: boolean
+  forceDestroy?: boolean
   verbose?: boolean
 }
 
@@ -94,9 +95,9 @@ const install = (g: Global) => {
     )
 
     g.afterAll(async () => {
-      const { testApp, force = false, verbose = false } = config // tmp dir for outputs
-      if (process.env.DESTROY_CDK_STACKS === 'true') {
-        await cdkDestroy(testApp.outDir, testApp.workDir, force, verbose)
+      const { testApp, verbose = false, forceDestroy = false } = config // tmp dir for outputs
+      if (forceDestroy || process.env.DESTROY_CDK_STACKS === 'true') {
+        await cdkDestroy(testApp.outDir, testApp.workDir, verbose)
       }
     }, 240_000)
   }
