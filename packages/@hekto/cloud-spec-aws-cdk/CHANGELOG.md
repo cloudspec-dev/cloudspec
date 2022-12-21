@@ -1,5 +1,12 @@
 # @hekto/cloud-spec-aws-cdk
 
+## 0.0.9
+
+### Patch Changes
+
+- 6140b27: Tag all resources, not only the stack. This allows cleaning up implicit resources like cloudwatch log groups
+- 14774b5: Make destroying of stacks work via env or `forceDestroy` option
+
 ## 0.0.8
 
 ### Patch Changes
