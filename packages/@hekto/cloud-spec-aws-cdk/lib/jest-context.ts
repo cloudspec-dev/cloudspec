@@ -17,6 +17,8 @@ export interface CloudSetup {
   force?: boolean
   forceDestroy?: boolean
   verbose?: boolean
+  setupTimeout?: number
+  destroyTimeout?: number
 }
 
 export interface CloudTestContextConfig {
@@ -91,7 +93,7 @@ const install = (g: Global) => {
           throw new Error('No outputs found')
         }
       }),
-      240_000,
+      config.setupTimeout || 240_000,
     )
 
     g.afterAll(async () => {
@@ -99,7 +101,7 @@ const install = (g: Global) => {
       if (forceDestroy || process.env.DESTROY_CDK_STACKS === 'true') {
         await cdkDestroy(testApp.outDir, testApp.workDir, verbose)
       }
-    }, 240_000)
+    }, config.destroyTimeout || 240_000)
   }
 
   const beforeAll = (t: Global.HookBase, timeout?: number) => {
