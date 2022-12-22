@@ -52,6 +52,7 @@ export const tfDeploy = async (testApp: TestAppConfig, force: boolean, verbose: 
     'apply',
     '-auto-approve',
     '-input=false',
+    '-refresh=false'
   ]
 
   try {
