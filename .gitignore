@@ -5,3 +5,5 @@ dist
 !jest.config.js
 **/outputs.json
 .cloud-spec
+**/*tfstate
+**/*tfstate*
