@@ -1,4 +1,4 @@
-# @hekto/cloud-spec-terraform
+# @cloudspec/terraform
 
 ## 0.0.2
 

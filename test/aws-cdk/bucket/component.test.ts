@@ -1,4 +1,4 @@
-import { cdkSpec as cloud, createTestApp, ForceEphemeralResources } from '@hekto/cloud-spec-aws-cdk'
+import { cdkSpec as cloud, createTestApp, ForceEphemeralResources } from '@cloudspec/aws-cdk'
 import { Aspects } from 'aws-cdk-lib'
 import { Bucket } from 'aws-cdk-lib/aws-s3'
 

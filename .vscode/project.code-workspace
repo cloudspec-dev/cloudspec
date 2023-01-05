@@ -6,11 +6,11 @@
     },
     {
       "name": "packages/aws-cdk",
-      "path": "../packages/@hekto/cloud-spec-aws-cdk"
+      "path": "../packages/@cloudspec/aws-cdk"
     },
     {
       "name": "packages/terraform",
-      "path": "../packages/@hekto/cloud-spec-terraform"
+      "path": "../packages/@cloudspec/terraform"
     },
     {
       "name": "test/aws-cdk",

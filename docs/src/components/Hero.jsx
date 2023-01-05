@@ -66,7 +66,7 @@ export function Hero() {
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button href="/">Get started</Button>
-                <Button href="https://github.com/hekto-dev/cloudspec" variant="secondary">
+                <Button href="https://github.com/cloudspec-dev/cloudspec" variant="secondary">
                   View on GitHub
                 </Button>
               </div>

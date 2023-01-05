@@ -1,7 +1,7 @@
 module.exports = {
   transform: {
     "^.+\\.(t|j)sx?$": ["@swc/jest"],
-    "^.+\\.tf$": ["@hekto/cloud-spec-terraform/dist/jest-terraform-transform"],
+    "^.+\\.tf$": ["@cloudspec/terraform/dist/jest-terraform-transform"],
   },
   testEnvironment: 'node',
   testMatch: ['**/*.test.ts'],

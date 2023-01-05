@@ -1,5 +1,5 @@
 {
-  "name": "@hekto/cloud-spec-cdktf",
+  "name": "@cloudspec/cdktf",
   "version": "0.0.2",
   "description": "",
   "main": "dist/index.js",
@@ -11,9 +11,9 @@
     "build": "tsc --outDir dist",
     "dev": "tsc --outDir dist --watch"
   },
-  "repository": "github:hekto-co/cloud-spec",
+  "repository": "github:cloudspec-dev/cloudspec",
   "keywords": [],
-  "author": "The Hekto Cloud Team",
+  "author": "Sebastian Korfmann",
   "license": "MPL-2.0",
   "devDependencies": {
     "@cdktf/provider-aws": "^11.0.8",

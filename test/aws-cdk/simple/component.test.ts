@@ -1,5 +1,5 @@
 import { CreateECR } from './component'
-import { cdkSpec as cloud, createTestApp } from '@hekto/cloud-spec-aws-cdk'
+import { cdkSpec as cloud, createTestApp } from '@cloudspec/aws-cdk'
 import { SFNClient, StartSyncExecutionCommand } from '@aws-sdk/client-sfn'
 import { ECRClient, DeleteRepositoryCommand } from '@aws-sdk/client-ecr'
 

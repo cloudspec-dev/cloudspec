@@ -1,4 +1,4 @@
-# @hekto/cloud-spec-cdktf
+# @cloudspec/cdktf
 
 ## 0.0.2
 

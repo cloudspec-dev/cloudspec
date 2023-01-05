@@ -1,5 +1,5 @@
 ---
-'@hekto/cloud-spec-cdktf': patch
+'@cloudspec/cdktf': patch
 ---
 
 Ephemeral Resources Visitor

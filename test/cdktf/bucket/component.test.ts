@@ -1,4 +1,4 @@
-import { cdkSpec as cloud, createTestApp } from '@hekto/cloud-spec-cdktf'
+import { cdkSpec as cloud, createTestApp } from '@cloudspec/cdktf'
 import { s3Bucket, provider } from '@cdktf/provider-aws'
 
 const testApp = createTestApp({

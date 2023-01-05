@@ -1,4 +1,4 @@
-# @hekto/cloud-spec-aws-cdk
+# @cloudspec/aws-cdk
 
 ## 0.0.11
 

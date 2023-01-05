@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@hekto/test-aws-cdk", "@hekto/test-terraform", "@hekto/test-cdktf"]
+  "ignore": ["@cloudspec/test-aws-cdk", "@cloudspec/test-terraform", "@cloudspec/test-cdktf"]
 }

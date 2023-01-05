@@ -1,6 +1,6 @@
-# Hekto Cloud Spec
+# CloudSpec
 
-A simple way to handle integration tests for AWS CDK projects. Cloud Spec is working on top of [Jest](https://jestjs.io/) and works with Typescript / Nodejs projects only at the moment.
+A simple way to handle integration tests for AWS CDK, CDK for Terraform & Terraform projects. Cloud Spec is working
 
 ## Example
 

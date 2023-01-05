@@ -1,4 +1,4 @@
-import { tfSpec as cloud, createTestApp } from '@hekto/cloud-spec-terraform'
+import { tfSpec as cloud, createTestApp } from '@cloudspec/terraform'
 import mainTf from './main.tf'
 
 const testApp = createTestApp({

@@ -1,4 +1,4 @@
 packages:
-  - 'packages/@hekto/*'
+  - 'packages/@cloudspec/*'
   - 'test/*'
   - 'docs'
