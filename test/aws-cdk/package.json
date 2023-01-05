@@ -1,5 +1,5 @@
 {
-  "name": "@cloudspec/aws-cdk",
+  "name": "@cloudspec/test-aws-cdk",
   "version": "0.0.0",
   "description": "",
   "private": true,
